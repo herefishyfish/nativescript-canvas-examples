@@ -91,7 +91,8 @@ export class BlobComponent {
   height: number;
   sphere: Mesh<SphereGeometry, MeshNormalMaterial>;
   noise: Noise;
-  vertexCount = 250;
+  vertex = new Vector3();
+  vertexCount = 220;
   timeAg = 0.0005;
 
   constructor(private _page: Page) {
@@ -159,16 +160,16 @@ export class BlobComponent {
 
     const positionAttribute: any =
       this.sphere.geometry.getAttribute("position");
-    const vertex = new Vector3();
+    
 
     if (positionAttribute) {
       for (let i = 0; i < positionAttribute?.count; i++) {
-        let p = vertex.fromBufferAttribute(positionAttribute as any, i);
-        p.normalize().multiplyScalar(
-          0.6 + 0.3 * noise.perlin3(p.x * k + time, p.y * k, p.z * k)
+        this.vertex.fromBufferAttribute(positionAttribute as any, i);
+        this.vertex.normalize().multiplyScalar(
+          0.6 + 0.3 * noise.perlin3(this.vertex.x * k + time, this.vertex.y * k, this.vertex.z * k)
         );
 
-        positionAttribute.setXYZ(i, p.x, p.y, p.z);
+        positionAttribute.setXYZ(i, this.vertex.x, this.vertex.y, this.vertex.z);
       }
       positionAttribute.needsUpdate = true;
     }
