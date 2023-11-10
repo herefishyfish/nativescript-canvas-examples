@@ -1,0 +1,32 @@
+// You can add your native dependencies here
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+//  implementation 'androidx.multidex:multidex:2.0.1'
+  releaseImplementation 'jp.wasabeef:takt-no-op:2.1.1'
+  debugImplementation 'jp.wasabeef:takt:2.1.1'
+}
+
+android {
+  // compileSdkVersion 32
+  // buildToolsVersion "32.0.0"
+  // ndkVersion ""
+
+  defaultConfig {
+    minSdkVersion 21
+    // targetSdkVersion 32
+
+    // Version Information
+    versionCode 1
+    versionName "1.0.0"
+    
+    generatedDensities = []
+  }
+
+  aaptOptions {
+    additionalParameters "--no-version-vectors"
+  }
+}
