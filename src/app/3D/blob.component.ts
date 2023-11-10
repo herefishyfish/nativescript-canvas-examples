@@ -14,6 +14,8 @@ import {
 import {Noise} from "noisejs";
 import { Page } from "@nativescript/core";
 
+declare var __time;
+
 var noise = new Noise(Math.random());
 registerElement("Canvas", () => Canvas);
 
@@ -92,7 +94,7 @@ export class BlobComponent {
   sphere: Mesh<SphereGeometry, MeshNormalMaterial>;
   noise: Noise;
   vertex = new Vector3();
-  vertexCount = 220;
+  vertexCount = 203;
   timeAg = 0.0005;
 
   constructor(private _page: Page) {
@@ -144,7 +146,7 @@ export class BlobComponent {
 
     requestAnimationFrame(this.renderAnimation);
 
-    window.addEventListener("resize", this.onWindowResize);
+    // window.addEventListener("resize", this.onWindowResize);
   }
 
   renderAnimation = () => {
@@ -152,7 +154,7 @@ export class BlobComponent {
     this.sphere.rotation.x += 0.0001;
 
     const time = global.isAndroid
-      ? java.lang.System.nanoTime() / 1000000000
+      ? __time() / 1000
       : performance.now() * this.timeAg;
 
     // change 'k' value for more spikes

@@ -3,13 +3,18 @@ import { Routes } from "@angular/router";
 export const routes: Routes = [
   {
     path: "",
-    redirectTo: "/breathe",
+    redirectTo: "/blob",
     pathMatch: "full",
   },
   {
     path: "home",
     loadComponent: () =>
       import("./home.component").then((m) => m.HomeComponent),
+  },
+  {
+    path: "adev",
+    loadComponent: () =>
+      import("./2D/adev/adev.component").then((m) => m.AngularDevCanvasComponent),
   },
   {
     path: "blob",
