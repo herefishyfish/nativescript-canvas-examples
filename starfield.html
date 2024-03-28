@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Starfield in Canvas</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="starfield"></canvas>
+    <script>
+        var canvas = document.getElementById('starfield');
+        var ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        var width = canvas.width;
+        var height = canvas.height;
+        var stars = [];
+        var speed = 10;
+        var numberOfStars = 1000;
+
+        function random(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        function map(value, low1, high1, low2, high2) {
+            return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+        }
+
+        function Star() {
+            this.x = random(-width / 2, width / 2);
+            this.y = random(-height / 2, height / 2);
+            this.z = random(0, width);
+            this.pz = this.z;
+
+            this.update = function() {
+                this.z = this.z - speed;
+                if (this.z < 1) {
+                    this.z = width;
+                    this.x = random(-width / 2, width / 2);
+                    this.y = random(-height / 2, height / 2);
+                    this.pz = this.z;
+                }
+            };
+
+            this.show = function() {
+                ctx.fillStyle = 'white';
+
+                var sx = map(this.x / this.z, 0, 1, width / 2, width);
+                var sy = map(this.y / this.z, 0, 1, height / 2, height);
+
+                var r = map(this.z, 0, width, 16, 0);
+                ctx.beginPath();
+                ctx.arc(sx, sy, r, 0, 2 * Math.PI);
+                ctx.fill();
+            };
+        }
+
+        for (var i = 0; i < numberOfStars; i++) {
+            stars.push(new Star());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            for (var i = 0; i < stars.length; i++) {
+                stars[i].update();
+                stars[i].show();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

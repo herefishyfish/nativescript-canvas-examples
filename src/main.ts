@@ -1,6 +1,7 @@
 import { platformNativeScript, runNativeScriptAngularApp } from '@nativescript/angular';
 import { AppModule } from './app/app.module';
 import { Utils } from '@nativescript/core';
+import '@nativescript/canvas-polyfill';
 
 declare const jp: any;
 

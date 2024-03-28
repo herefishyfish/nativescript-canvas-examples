@@ -3,13 +3,32 @@ import { Routes } from "@angular/router";
 export const routes: Routes = [
   {
     path: "",
-    redirectTo: "/blob",
+    redirectTo: "/smoke",
     pathMatch: "full",
+  },
+  {
+    path: 'star',
+    loadComponent: () => import('./2D/star.component').then((m) => m.StarComponent),
   },
   {
     path: "home",
     loadComponent: () =>
       import("./home.component").then((m) => m.HomeComponent),
+  },
+  {
+    path: "glass",
+    loadComponent: () =>
+      import("./2D/glass.component").then((m) => m.GlassComponent),
+  },
+  {
+    path: "smoke",
+    loadComponent: () =>
+      import("./3D/smoke.component").then((m) => m.SmokeComponent),
+  },
+  {
+    path: "starfield",
+    loadComponent: () =>
+      import("./2D/starfield.component").then((m) => m.StarfieldComponent),
   },
   {
     path: "adev",
@@ -20,6 +39,11 @@ export const routes: Routes = [
     path: "blob",
     loadComponent: () =>
       import("./3D/blob.component").then((m) => m.BlobComponent),
+  },
+  {
+    path: "rect",
+    loadComponent: () =>
+      import("./3D/rect-nav.component").then((m) => m.RectNavComponent),
   },
   {
     path: "celes",

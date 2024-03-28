@@ -92,7 +92,7 @@ export class CompassComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.#page.actionBarHidden = true;
-    this.timer.pipe(sampleTime(8)).subscribe((rotation: number) => {
+    this.timer/*.pipe(sampleTime(8))*/.subscribe((rotation: number) => {
       this.drawCompass2(rotation);
     })
   }
@@ -110,13 +110,10 @@ export class CompassComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onReady(args: any) {
-    setTimeout(() => {
-      console.log('Canvas loaded');
-      this.canvas = args?.object;
-      this.ctx = this.canvas?.getContext('2d');
+    this.canvas = args?.object;
+    this.ctx = this.canvas?.getContext('2d');
 
-      this.drawCompass2(0);
-    }, 0);
+    this.drawCompass2(0);
   }
 
   drawCompass2(rotation = 0) {
@@ -188,10 +185,10 @@ export class CompassComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ctx.translate(point3.x, point3.y);
       this.ctx.rotate((Math.PI / 180) * i + Math.PI / 2);
       this.ctx.translate(-point3.x, -point3.y);
-      this.ctx.font = 'bold 40px Arial';
+      this.ctx.font = 'bold 16px Arial';
       this.ctx.fillStyle = 'white';
       this.ctx.textAlign = 'center';
-      this.ctx.textBaseline = 'middle';
+      this.ctx.textBaseline = 'bottom';
       this.ctx.fillText(i + 90, point3.x, point3.y);
       this.ctx.restore();
     }
@@ -216,10 +213,10 @@ export class CompassComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
         this.ctx.translate(-point2.x, -point2.y);
-        this.ctx.font = 'bold 70px Arial';
+        this.ctx.font = 'bold 36px Arial';
         this.ctx.fillStyle = 'white';
         this.ctx.textAlign = 'center';
-        this.ctx.textBaseline = 'middle';
+        // this.ctx.textBaseline = 'middle';
         this.ctx.fillText(i === 0 ? 'E' : i === 90 ? 'S' : i === 180 ? 'W' : 'N', point2.x, point2.y + 15);
         this.ctx.restore();
       }

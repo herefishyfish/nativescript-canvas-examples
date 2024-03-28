@@ -1,6 +1,6 @@
 import { Component, NO_ERRORS_SCHEMA } from "@angular/core";
 import { registerElement } from "@nativescript/angular";
-import { Canvas, WebGL2RenderingContext } from "@nativescript/canvas";
+import { Canvas, WebGL2RenderingContext, WebGLRenderingContext } from "@nativescript/canvas";
 import {
   Scene,
   WebGLRenderer,
@@ -14,7 +14,7 @@ import {
 import {Noise} from "noisejs";
 import { Page } from "@nativescript/core";
 
-declare var __time;
+declare const __time: any;
 
 var noise = new Noise(Math.random());
 registerElement("Canvas", () => Canvas);
@@ -94,7 +94,7 @@ export class BlobComponent {
   sphere: Mesh<SphereGeometry, MeshNormalMaterial>;
   noise: Noise;
   vertex = new Vector3();
-  vertexCount = 203;
+  vertexCount = 440;
   timeAg = 0.0005;
 
   constructor(private _page: Page) {
@@ -122,7 +122,7 @@ export class BlobComponent {
       antialias: true,
     });
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setSize(this.canvas.width, this.canvas.height);
 
     this.renderer.outputEncoding = sRGBEncoding;
 
@@ -144,6 +144,8 @@ export class BlobComponent {
     this.sphere = new Mesh(sphere_geometry, material);
     this.scene.add(this.sphere);
 
+    this.renderer.setClearColor(0xf1eece, 1);
+
     requestAnimationFrame(this.renderAnimation);
 
     // window.addEventListener("resize", this.onWindowResize);
@@ -153,9 +155,10 @@ export class BlobComponent {
     this.sphere.rotation.y += 0.0005;
     this.sphere.rotation.x += 0.0001;
 
-    const time = global.isAndroid
-      ? __time() / 1000
-      : performance.now() * this.timeAg;
+    const time = __time() / 1000;
+    // global.isAndroid
+    //   ? __time() / 1000
+    //   : performance.now() * this.timeAg;
 
     // change 'k' value for more spikes
     let k = 1.33;

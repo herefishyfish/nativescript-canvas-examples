@@ -11,21 +11,18 @@ registerElement('Canvas', () => Canvas);
   template: `
     <GridLayout class="container" backgroundColor="#00364f">
       <Canvas rowSpan="3" (ready)="onCanvasReady($event)"></Canvas>
-      
       <StackLayout class="p-8">
         <Label class="h1 greeting text-white text-center">❤️ NativeScript</Label>
-
-        <Button class="text-lg rounded-full bg-blue-400 text-white font-bold m-2" (tap)="basic()">Basic?</Button>
-        <Button class="text-lg rounded-full bg-blue-400 text-white font-bold m-2" (tap)="basicBig()">Basic Big</Button>
-        <Button class="text-lg rounded-full bg-blue-400 text-white font-bold m-2" (tap)="random()">Random</Button>
-        <Button class="text-lg rounded-full bg-blue-400 text-white font-bold m-2" (tap)="realistic()">Realistic</Button>
-        <Button class="text-lg rounded-full bg-blue-400 text-white font-bold m-2" (tap)="stars()">Stars</Button>
-        <Button class="text-lg rounded-full bg-blue-400 text-white font-bold m-2" (tap)="fireworks()">Fireworks</Button>
-        <Button class="text-lg rounded-full bg-blue-400 text-white font-bold m-2" (tap)="snow()">Snow</Button>
-        <Button class="text-lg rounded-full bg-blue-400 text-white font-bold m-2" (tap)="team()">Team Pride</Button>
+        
+        <Button class="text-lg rounded-full bg-blue-400 bg-opacity-10 text-white font-bold m-2" (tap)="basic()">Basic?</Button>
+        <Button class="text-lg rounded-full bg-blue-400 bg-opacity-10 text-white font-bold m-2" (tap)="basicBig()">Basic Big</Button>
+        <Button class="text-lg rounded-full bg-blue-400 bg-opacity-10 text-white font-bold m-2" (tap)="random()">Random</Button>
+        <Button class="text-lg rounded-full bg-blue-400 bg-opacity-10 text-white font-bold m-2" (tap)="realistic()">Realistic</Button>
+        <Button class="text-lg rounded-full bg-blue-400 bg-opacity-10 text-white font-bold m-2" (tap)="stars()">Stars</Button>
+        <Button class="text-lg rounded-full bg-blue-400 bg-opacity-10 text-white font-bold m-2" (tap)="fireworks()">Fireworks</Button>
+        <Button class="text-lg rounded-full bg-blue-400 bg-opacity-10 text-white font-bold m-2" (tap)="snow()">Snow</Button>
+        <Button class="text-lg rounded-full bg-blue-400 bg-opacity-10 text-white font-bold m-2" (tap)="team()">Team Pride</Button>
       </StackLayout>
-
-
     </GridLayout>
   `,
   styles: [
@@ -43,8 +40,8 @@ export class AppComponent {
 
   onCanvasReady(event: LoadEventData) {
     const canvas: Canvas = event?.object as Canvas;
-    canvas.ignoreTouchEvents = true;
-    canvas.ignoreTouchAnimation = true;
+    // canvas.ignoreTouchEvents = true;
+    // canvas.ignoreTouchAnimation = true;
     this.confetti = confetti.create(canvas, {});
   }
 
@@ -217,7 +214,7 @@ export class AppComponent {
   }
 
   team() {
-    const duration = 3 * 1000;
+    const duration = 15 * 1000;
     const animationEnd = Date.now() + duration;
 
     var colors = ['#bb0000', '#ffffff'];
@@ -227,14 +224,12 @@ export class AppComponent {
         angle: 60,
         spread: 55,
         origin: { x: 0 },
-        scalar: 2,
         colors: colors,
       });
       this.confetti({
         particleCount: 2,
         angle: 120,
         spread: 55,
-        scalar: 2,
         origin: { x: 1 },
         colors: colors,
       });

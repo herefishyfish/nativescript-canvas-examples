@@ -148,8 +148,8 @@ export class BreatheComponent {
   onCanvasReady(args) {
     this.canvas = args?.object as Canvas;
     this.ctx = this.canvas?.getContext('2d') as CanvasRenderingContext2D;
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const width = this.canvas.width;
+    const height = this.canvas.height;
     const size = Math.min(width, height) / 2.5;
     const speed = 0.0055;
 

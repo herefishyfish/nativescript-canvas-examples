@@ -19,5 +19,4 @@ import 'zone.js';
 // Add NativeScript specific Zone JS patches
 import '@nativescript/zone-js';
 
-import '@nativescript/canvas-polyfill';
-
+// import '@nativescript/canvas-polyfill';

@@ -1,8 +1,9 @@
-import { Component, NO_ERRORS_SCHEMA, inject, NgZone } from '@angular/core';
-import { Application, Page } from '@nativescript/core';
-import { Canvas, CanvasRenderingContext2D } from '@nativescript/canvas';
-import { registerElement } from '@nativescript/angular';
-registerElement('Canvas', () => Canvas);
+import { Component, NO_ERRORS_SCHEMA, inject, NgZone } from "@angular/core";
+import { Application, Page } from "@nativescript/core";
+import { Canvas, CanvasRenderingContext2D } from "@nativescript/canvas";
+import { registerElement } from "@nativescript/angular";
+import { time } from "@nativescript/core/profiling";
+registerElement("Canvas", () => Canvas);
 
 class Circle {
   x: number;
@@ -17,12 +18,12 @@ class Circle {
     this.y = Math.random() * height;
     this.radius = Math.random() * (maxRadius - minRadius) + minRadius;
     this.angle = Math.random() * 2 * Math.PI;
-    // this.firstColor = `hsla(${Math.random() * 220 + 140}, 70%, 60%, 1)`;
-    // this.secondColor = `hsla(${Math.random() * 220 + 140}, 70%, 60%, 0)`;
+    this.firstColor = `hsla(${Math.random() * 220 + 140}, 70%, 60%, 1)`;
+    this.secondColor = `hsla(${Math.random() * 220 + 140}, 70%, 60%, 0)`;
 
-    this.firstColor = `hsla(${
-      Math.random() * 360
-    }, 100%, 50%, ${Math.random()})`;
+    // this.firstColor = `hsla(${
+    //   Math.random() * 360
+    // }, 100%, 50%, ${Math.random()})`;
     // this.secondColor = `hsla(${Math.random() * 360}, 100%, 50%, 0)`;
   }
 
@@ -45,11 +46,11 @@ class Circle {
 }
 
 @Component({
-  selector: 'ns-canvas',
+  selector: "ns-canvas",
   template: `
-  <GridLayout>
-    <Canvas backgroundColor="white" (ready)="onCanvasReady($event)"></Canvas>
-  </GridLayout>
+    <GridLayout>
+      <Canvas backgroundColor="white" (ready)="onCanvasReady($event)"></Canvas>
+    </GridLayout>
   `,
   standalone: true,
   schemas: [NO_ERRORS_SCHEMA],
@@ -61,7 +62,7 @@ export class CirclesComponent {
   _zone: NgZone = inject(NgZone);
 
   circles = [];
-  circlesNum = 1900;
+  circlesNum = 1200;
   minRadius = 100;
   maxRadius = 1200;
   speed = 0.01;
@@ -81,7 +82,7 @@ export class CirclesComponent {
 
   onCanvasReady(args) {
     this.canvas = args?.object as Canvas;
-    this.ctx = this.canvas?.getContext('2d') as CanvasRenderingContext2D;
+    this.ctx = this.canvas?.getContext("2d") as CanvasRenderingContext2D;
 
     this.minRadius =
       Math.min(Number(this.canvas.width), Number(this.canvas.height)) * 0.05;
@@ -112,7 +113,7 @@ export class CirclesComponent {
       Number(this.canvas.width),
       Number(this.canvas.height)
     );
-
+    
     this.circles.forEach((circle) => circle.draw(this.ctx, this.speed));
 
     requestAnimationFrame(() => this.drawAnimation());

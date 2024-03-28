@@ -138,7 +138,7 @@ export class CelestialComponent {
     const height = this.ctx.drawingBufferHeight;
 
     this.scene = new Scene();
-    this.scene.fog = new Fog(0x142641, 10, 30);
+    this.scene.fog = new Fog(0x142641, 10, 31);
 
     // Setup camera
     this.camera = new PerspectiveCamera(35, width / height, 0.1, 1000);
